@@ -10,7 +10,7 @@ class Settings:
 
     def __init__(self) -> None:
         project_root = Path(__file__).resolve().parents[2]
-        default_data_path = project_root / "backend" / "data" / "seed_data.json"
+        default_data_path = project_root / "processed_data"
         self.project_root = project_root
         self.data_path = Path(os.getenv("CORRIDORIQ_DATA_PATH", default_data_path))
         raw_cors_origins = os.getenv("CORRIDORIQ_CORS_ORIGINS", "*")

@@ -18,42 +18,37 @@ COMPONENTS: tuple[ComponentDefinition, ...] = (
     ComponentDefinition(
         key="emissions_pollution_intensity",
         label="Emissions / Pollution Intensity",
-        weight=0.20,
-        metric_keys=("emissions_intensity_index", "pollution_burden_index"),
-        rationale="Higher emissions and pollution burdens increase the value of intervention in the corridor.",
+        weight=0.25,
+        metric_keys=("shipping_emissions_score", "no2_score"),
+        rationale="Shipping emissions context and NO2 pressure indicate whether the corridor faces meaningful decarbonization pressure.",
     ),
     ComponentDefinition(
         key="logistics_activity",
         label="Logistics Activity",
         weight=0.20,
-        metric_keys=("freight_volume_index", "throughput_index"),
-        rationale="Higher freight demand and throughput make interventions more material to network performance.",
+        metric_keys=("night_lights_score",),
+        rationale="Nighttime lights act as a persistent proxy for logistics activity and operational concentration.",
     ),
     ComponentDefinition(
         key="port_infrastructure_readiness",
         label="Port Infrastructure Readiness",
-        weight=0.25,
-        metric_keys=("port_capacity_index", "port_electrification_index", "low_carbon_fuel_index"),
-        rationale="Port capacity and clean-energy infrastructure determine whether the corridor can absorb transition investments.",
+        weight=0.20,
+        metric_keys=("port_readiness_score",),
+        rationale="Port readiness captures whether endpoint infrastructure can support near-term decarbonization interventions.",
     ),
     ComponentDefinition(
         key="cross_mode_connectivity",
         label="Cross-Mode Connectivity",
         weight=0.20,
-        metric_keys=("rail_connectivity_index", "inland_ev_support_index", "cross_mode_coordination_index"),
-        rationale="Intermodal coordination and inland support determine whether activity can shift cleanly across the network.",
+        metric_keys=("connectivity_score",),
+        rationale="Connectivity reflects whether corridor decarbonization can extend beyond the port into the wider freight system.",
     ),
     ComponentDefinition(
         key="transition_feasibility",
         label="Transition Feasibility",
         weight=0.15,
-        metric_keys=(
-            "policy_support_index",
-            "permitting_readiness_index",
-            "land_availability_index",
-            "workforce_readiness_index",
-        ),
-        rationale="Policy, permitting, land, and workforce readiness shape execution speed and delivery risk.",
+        metric_keys=("transition_feasibility_score",),
+        rationale="Transition feasibility estimates whether intervention is actionable in the near term, not just desirable.",
     ),
 )
 
@@ -63,7 +58,7 @@ def _average(values: list[float]) -> float:
 
 
 def component_scores(corridor: CorridorRecord) -> list[ScoreComponent]:
-    features = corridor.feature_table.model_dump()
+    features = corridor.model_dump()
     components: list[ScoreComponent] = []
     for definition in COMPONENTS:
         metrics = {metric: float(features[metric]) for metric in definition.metric_keys}
@@ -94,16 +89,39 @@ def _band(overall_score: float) -> str:
 def score_corridor(corridor: CorridorRecord) -> CorridorScore:
     components = component_scores(corridor)
     weighted = sum(component.score * component.weight for component in components)
-    overall_score = round(weighted, 2)
+    component_map = {component.key: component.score for component in components}
+    emissions_score = component_map["emissions_pollution_intensity"]
+    logistics_score = component_map["logistics_activity"]
+    port_score = component_map["port_infrastructure_readiness"]
+    connectivity_score = component_map["cross_mode_connectivity"]
+    feasibility_score = component_map["transition_feasibility"]
+
+    adjustments: list[str] = []
+    leverage_average = round((port_score + connectivity_score + feasibility_score) / 3, 2)
+    readiness_score = weighted
+
+    if emissions_score >= 70 and leverage_average < 50:
+        readiness_score -= 8
+        adjustments.append(
+            "High environmental pressure is being discounted because delivery conditions are still weak."
+        )
+
+    if emissions_score >= 65 and logistics_score >= 65 and leverage_average >= 60:
+        readiness_score += 5
+        adjustments.append(
+            "Readiness is boosted because pressure, activity, and intervention leverage are all strong enough for near-term action."
+        )
+
+    readiness_score = round(max(0.0, min(100.0, readiness_score)), 2)
     strengths = [component.label for component in components if component.score >= 70]
     shortfalls = [component.label for component in components if component.score < 50]
 
     return CorridorScore(
-        corridor_id=corridor.id,
-        overall_score=overall_score,
-        band=_band(overall_score),
+        corridor_id=corridor.corridor_id,
+        readiness_score=readiness_score,
+        band=_band(readiness_score),
         components=components,
         strengths=strengths,
         shortfalls=shortfalls,
+        adjustments=adjustments,
     )
-

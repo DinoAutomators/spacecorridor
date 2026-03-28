@@ -40,7 +40,7 @@ def health() -> HealthResponse:
 
 @app.get("/corridors", response_model=CorridorListResponse, tags=["corridors"])
 def list_corridors() -> CorridorListResponse:
-    items = [service.map_card_for(corridor.id) for corridor in service.list_corridors()]
+    items = [service.map_card_for(corridor.corridor_id) for corridor in service.list_corridors()]
     return CorridorListResponse(count=len(items), items=items)
 
 
@@ -58,16 +58,16 @@ def list_ports(corridor_id: str | None = Query(default=None)) -> PortListRespons
 @app.get("/score/{corridor_id}", response_model=CorridorScore, tags=["analysis"])
 def corridor_score(corridor_id: str) -> CorridorScore:
     corridor = service.get_corridor(corridor_id)
-    return service.detail_view_for(corridor.id).score
+    return service.detail_view_for(corridor.corridor_id).score
 
 
 @app.get("/diagnosis/{corridor_id}", response_model=DiagnosisPanel, tags=["analysis"])
 def corridor_diagnosis(corridor_id: str) -> DiagnosisPanel:
     corridor = service.get_corridor(corridor_id)
-    return service.detail_view_for(corridor.id).diagnosis_panel
+    return service.detail_view_for(corridor.corridor_id).diagnosis_panel
 
 
 @app.get("/recommendation/{corridor_id}", response_model=RecommendationPanel, tags=["analysis"])
 def corridor_recommendation(corridor_id: str) -> RecommendationPanel:
     corridor = service.get_corridor(corridor_id)
-    return service.detail_view_for(corridor.id).recommendation_panel
+    return service.detail_view_for(corridor.corridor_id).recommendation_panel

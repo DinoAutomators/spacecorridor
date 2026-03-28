@@ -1,0 +1,7 @@
+port_id,port_name,country,region,mode,lat,lon,harbor_type,cargo_capability,services_score,strategic_score,readiness_score
+port_los_angeles,Port of Los Angeles,USA,California,port,33.73,-118.27,Coastal,true,92,95,43
+port_phoenix_inland,Phoenix Inland Hub,USA,Arizona,inland_hub,33.45,-112.07,Inland,true,67,74,52
+port_houston,Port of Houston,USA,Texas,port,29.73,-95.24,Coastal,true,84,88,63
+port_dallas_inland,Dallas Inland Hub,USA,Texas,inland_hub,32.78,-96.8,Inland,true,62,72,38
+port_savannah,Port of Savannah,USA,Georgia,port,32.08,-81.09,Coastal,true,81,86,72
+port_atlanta_inland,Atlanta Inland Hub,USA,Georgia,inland_hub,33.75,-84.39,Inland,true,69,76,64

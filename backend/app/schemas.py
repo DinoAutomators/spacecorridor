@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Literal
 
-from pydantic import BaseModel, Field, computed_field, field_validator
+from pydantic import BaseModel, Field, computed_field
 
 
 class Coordinate(BaseModel):
@@ -10,47 +10,53 @@ class Coordinate(BaseModel):
     lon: float
 
 
-class CorridorFeatures(BaseModel):
-    emissions_intensity_index: float = Field(ge=0, le=100)
-    pollution_burden_index: float = Field(ge=0, le=100)
-    freight_volume_index: float = Field(ge=0, le=100)
-    throughput_index: float = Field(ge=0, le=100)
-    port_capacity_index: float = Field(ge=0, le=100)
-    port_electrification_index: float = Field(ge=0, le=100)
-    low_carbon_fuel_index: float = Field(ge=0, le=100)
-    rail_connectivity_index: float = Field(ge=0, le=100)
-    inland_ev_support_index: float = Field(ge=0, le=100)
-    cross_mode_coordination_index: float = Field(ge=0, le=100)
-    policy_support_index: float = Field(ge=0, le=100)
-    permitting_readiness_index: float = Field(ge=0, le=100)
-    land_availability_index: float = Field(ge=0, le=100)
-    workforce_readiness_index: float = Field(ge=0, le=100)
-
-
 class PortRecord(BaseModel):
-    id: str
-    corridor_id: str
-    name: str
+    port_id: str
+    port_name: str
     country: str
-    state_or_region: str
+    region: str
     mode: str = "port"
-    center: Coordinate
-    throughput_index: float = Field(ge=0, le=100)
-    electrification_readiness_index: float = Field(ge=0, le=100)
-    low_carbon_fuel_readiness_index: float = Field(ge=0, le=100)
-    intermodal_access_index: float = Field(ge=0, le=100)
+    lat: float
+    lon: float
+    harbor_type: str | None = None
+    cargo_capability: bool | None = None
+    services_score: float | None = Field(default=None, ge=0, le=100)
+    strategic_score: float | None = Field(default=None, ge=0, le=100)
+    readiness_score: float | None = Field(default=None, ge=0, le=100)
+
+    @computed_field
+    @property
+    def center(self) -> Coordinate:
+        return Coordinate(lat=self.lat, lon=self.lon)
 
 
 class CorridorRecord(BaseModel):
-    id: str
-    name: str
-    origin: str
-    destination: str
+    corridor_id: str
+    corridor_name: str
+    start_port: str
+    end_port: str
     region: str
-    description: str
-    center: Coordinate
-    tags: list[str] = Field(default_factory=list)
-    feature_table: CorridorFeatures
+    mode: str = "maritime"
+    time_period: str = "latest available"
+    description: str = ""
+    strategic_importance_note: str = ""
+    geometry: list[list[float]] = Field(default_factory=list)
+    no2_score: float = Field(ge=0, le=100)
+    night_lights_score: float = Field(ge=0, le=100)
+    shipping_emissions_score: float = Field(ge=0, le=100)
+    port_readiness_score: float = Field(ge=0, le=100)
+    connectivity_score: float = Field(ge=0, le=100)
+    transition_feasibility_score: float = Field(ge=0, le=100)
+    center: Coordinate | None = None
+
+
+class CorridorMetrics(BaseModel):
+    no2_score: float
+    night_lights_score: float
+    shipping_emissions_score: float
+    port_readiness_score: float
+    connectivity_score: float
+    transition_feasibility_score: float
 
 
 class DataBundle(BaseModel):
@@ -69,11 +75,12 @@ class ScoreComponent(BaseModel):
 
 class CorridorScore(BaseModel):
     corridor_id: str
-    overall_score: float
+    readiness_score: float
     band: Literal["leading", "ready", "emerging", "constrained"]
     components: list[ScoreComponent]
     strengths: list[str]
     shortfalls: list[str]
+    adjustments: list[str]
 
 
 class DiagnosisFinding(BaseModel):
@@ -110,11 +117,13 @@ class RecommendationPanel(BaseModel):
 class CorridorMapCard(BaseModel):
     corridor_id: str
     corridor_name: str
-    origin: str
-    destination: str
-    score: float
+    start_port: str
+    end_port: str
+    readiness_score: float
+    no2_score: float
+    night_lights_score: float
     band: str
-    top_diagnosis: str
+    bottleneck_label: str
     top_recommendation: str
     center: Coordinate
 
@@ -122,6 +131,7 @@ class CorridorMapCard(BaseModel):
 class CorridorDetailView(BaseModel):
     corridor: CorridorRecord
     ports: list[PortRecord]
+    metrics: CorridorMetrics
     score: CorridorScore
     diagnosis_panel: DiagnosisPanel
     recommendation_panel: RecommendationPanel
@@ -142,20 +152,3 @@ class HealthResponse(BaseModel):
     status: str
     app: str
     version: str
-
-
-class PortsQuery(BaseModel):
-    corridor_id: str | None = None
-
-    @field_validator("corridor_id")
-    @classmethod
-    def empty_string_to_none(cls, value: str | None) -> str | None:
-        if value == "":
-            return None
-        return value
-
-    @computed_field
-    @property
-    def has_filter(self) -> bool:
-        return self.corridor_id is not None
-

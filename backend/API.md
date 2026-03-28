@@ -28,15 +28,17 @@ Example response shape:
     {
       "corridor_id": "pacific-gateway",
       "corridor_name": "Pacific Gateway",
-      "origin": "Los Angeles, CA",
-      "destination": "Phoenix, AZ",
-      "score": 63.25,
-      "band": "ready",
-      "top_diagnosis": "Infrastructure bottleneck",
+      "start_port": "port_los_angeles",
+      "end_port": "port_phoenix_inland",
+      "readiness_score": 64.4,
+      "no2_score": 74,
+      "night_lights_score": 88,
+      "band": "emerging",
+      "bottleneck_label": "Port Infrastructure Gap",
       "top_recommendation": "Port electrification",
       "center": {
-        "lat": 33.85,
-        "lon": -116.2
+        "lat": 33.59,
+        "lon": -115.17
       }
     }
   ]
@@ -62,11 +64,12 @@ Returns all ports. Supports optional query parameter `corridor_id`.
 
 Returns:
 
-- overall score
+- readiness score
 - score band
 - weighted component breakdown
 - strengths
 - shortfalls
+- actionability adjustments
 
 ### `GET /diagnosis/{corridor_id}`
 
@@ -100,3 +103,6 @@ Recommendation rules live in:
 
 - [backend/app/recommendation.py](/Users/taimuradam/Documents/GitHub/spacecorridor/backend/app/recommendation.py)
 
+## Shared contract
+
+The backend is built around the Person 1 freeze-point contract documented in [processed_data/data_dictionary.md](/Users/taimuradam/Documents/GitHub/spacecorridor/processed_data/data_dictionary.md).

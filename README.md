@@ -27,33 +27,32 @@ Open:
 
 ## Data contract
 
-The app loads data from `backend/data/seed_data.json` by default. You can point it at a different file with:
+The app loads data from [processed_data](/Users/taimuradam/Documents/GitHub/spacecorridor/processed_data) by default. This matches the Person 1 → Person 2 handoff model: Person 1 owns raw data and feature preparation, while this backend starts from the frozen processed features.
+
+You can point it at a different file or directory with:
 
 ```bash
-export CORRIDORIQ_DATA_PATH=/absolute/path/to/your-feature-data.json
+export CORRIDORIQ_DATA_PATH=/absolute/path/to/processed_data
 ```
 
-The JSON file should contain:
+Supported inputs:
 
-- `corridors`: a list of corridor objects
-- `ports`: a list of port objects
+- `processed_data/corridor_features.csv`
+- `processed_data/port_features.csv`
+- or a bundled JSON file with `corridors` and `ports`
 
-Each corridor expects the feature indices below, all on a `0-100` scale:
+Minimum shared corridor fields, all normalized to `0-100`:
 
-- `emissions_intensity_index`
-- `pollution_burden_index`
-- `freight_volume_index`
-- `throughput_index`
-- `port_capacity_index`
-- `port_electrification_index`
-- `low_carbon_fuel_index`
-- `rail_connectivity_index`
-- `inland_ev_support_index`
-- `cross_mode_coordination_index`
-- `policy_support_index`
-- `permitting_readiness_index`
-- `land_availability_index`
-- `workforce_readiness_index`
+- `corridor_id`
+- `corridor_name`
+- `start_port`
+- `end_port`
+- `no2_score`
+- `night_lights_score`
+- `shipping_emissions_score`
+- `port_readiness_score`
+- `connectivity_score`
+- `transition_feasibility_score`
 
 ## API routes
 
@@ -70,5 +69,5 @@ More route details and example payloads are in [backend/API.md](/Users/taimurada
 ## Notes
 
 - FastAPI automatically generates API documentation from the response models.
-- The scoring weights and rule thresholds are centralized in the domain modules so they are easy to tune once Person 1's final feature tables arrive.
-
+- The scoring weights and rule thresholds are centralized in the domain modules so they are easy to tune once Person 1 freezes final feature values.
+- Readiness is modeled as actionability, not just pollution magnitude: high pressure with weak delivery conditions is penalized, while high pressure plus strong leverage is rewarded.
