@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SpaceCorridor
 
-## Getting Started
+Geospatial intelligence platform that diagnoses which trade corridors are most ready for decarbonization, identifies bottlenecks, and recommends interventions.
 
-First, run the development server:
+## Quick Start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Stack
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend**: Next.js 14, TypeScript, Tailwind CSS, shadcn/ui (dark theme)
+- **Map**: Mapbox GL JS + react-map-gl
+- **Charts**: Recharts (RadarChart, BarChart)
+- **Backend**: Supabase (optional — falls back to local JSON data)
+- **Data Pipeline**: Python scripts (pandas, geopandas, ee)
 
-## Learn More
+## Data Sources
 
-To learn more about Next.js, take a look at the following resources:
+- OECD Maritime Transport CO2 Emissions
+- World Port Index (WPI)
+- Sentinel-5P OFFL NO2 (Google Earth Engine)
+- VIIRS Nighttime Lights (Google Earth Engine)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Environment Variables
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Copy `.env.local` and fill in:
 
-## Deploy on Vercel
+```
+NEXT_PUBLIC_MAPBOX_TOKEN=pk.your_token
+NEXT_PUBLIC_SUPABASE_URL=your_url        # optional
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_key   # optional
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Corridors Analyzed
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Corridor | Region | Ports |
+|----------|--------|-------|
+| Singapore → Rotterdam | Asia-Europe | Singapore, Rotterdam |
+| Shanghai → Los Angeles | Trans-Pacific | Shanghai, Los Angeles |
+| Jebel Ali → Mumbai | Regional | Jebel Ali, Mumbai (JNPT) |
+| Busan → Long Beach | Trans-Pacific | Busan, Long Beach |
+| Algeciras → Santos | Atlantic | Algeciras, Santos |
