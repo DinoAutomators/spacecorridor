@@ -19,6 +19,9 @@ export const REGIONS = [
   "Trans-Pacific",
   "Regional",
   "Atlantic",
+  "Mediterranean",
+  "Indian Ocean",
+  "Asia-Pacific",
 ] as const;
 
 export const READINESS_COLORS = {
