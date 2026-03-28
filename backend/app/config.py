@@ -17,6 +17,9 @@ class Settings:
         self.cors_origins = [origin.strip() for origin in raw_cors_origins.split(",") if origin.strip()]
         self.app_name = "CorridorIQ API"
         self.app_version = "0.1.0"
+        self.supabase_url = os.getenv("SUPABASE_URL")
+        self.supabase_key = os.getenv("SUPABASE_KEY")
+        self.use_supabase = bool(self.supabase_url and self.supabase_key)
 
 
 @lru_cache

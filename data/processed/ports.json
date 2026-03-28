@@ -1,132 +1,172 @@
 [
   {
-    "id": "singapore",
-    "name": "Singapore",
-    "country": "Singapore",
-    "lat": 1.2644,
-    "lng": 103.8222,
-    "harbor_type": "Coastal Natural",
-    "cargo_capability": ["Container", "Bulk", "Tanker", "RoRo"],
-    "services_score": 92,
-    "strategic_score": 95,
-    "no2_mean": 42.3,
-    "viirs_mean": 38.7
-  },
-  {
-    "id": "rotterdam",
-    "name": "Rotterdam",
-    "country": "Netherlands",
-    "lat": 51.9225,
-    "lng": 4.47917,
-    "harbor_type": "River Natural",
-    "cargo_capability": ["Container", "Bulk", "Tanker", "LNG"],
-    "services_score": 95,
-    "strategic_score": 90,
-    "no2_mean": 35.1,
-    "viirs_mean": 45.2
-  },
-  {
-    "id": "shanghai",
-    "name": "Shanghai",
-    "country": "China",
-    "lat": 31.2304,
-    "lng": 121.4737,
-    "harbor_type": "River Natural",
-    "cargo_capability": ["Container", "Bulk", "Tanker"],
-    "services_score": 88,
-    "strategic_score": 92,
-    "no2_mean": 58.7,
-    "viirs_mean": 52.1
-  },
-  {
-    "id": "los_angeles",
-    "name": "Los Angeles",
-    "country": "United States",
-    "lat": 33.7405,
-    "lng": -118.2653,
-    "harbor_type": "Coastal Breakwater",
-    "cargo_capability": ["Container", "Bulk", "Tanker", "RoRo"],
-    "services_score": 90,
-    "strategic_score": 88,
-    "no2_mean": 31.4,
-    "viirs_mean": 41.8
-  },
-  {
-    "id": "jebel_ali",
-    "name": "Jebel Ali",
-    "country": "United Arab Emirates",
-    "lat": 25.0177,
-    "lng": 55.0607,
-    "harbor_type": "Coastal Breakwater",
-    "cargo_capability": ["Container", "Bulk", "Tanker", "RoRo"],
-    "services_score": 85,
-    "strategic_score": 82,
-    "no2_mean": 28.9,
-    "viirs_mean": 35.4
-  },
-  {
-    "id": "mumbai",
-    "name": "Mumbai (JNPT)",
-    "country": "India",
-    "lat": 18.9489,
-    "lng": 72.9518,
-    "harbor_type": "Coastal Natural",
-    "cargo_capability": ["Container", "Bulk", "Tanker"],
-    "services_score": 62,
+    "id": "algeciras",
+    "name": "Algeciras",
+    "country": "Spain",
+    "lat": 36.133333,
+    "lng": -5.433333,
+    "harbor_type": "Coastal (Breakwater)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 68,
     "strategic_score": 70,
-    "no2_mean": 47.2,
-    "viirs_mean": 28.3
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
   },
   {
     "id": "busan",
     "name": "Busan",
     "country": "South Korea",
-    "lat": 35.1028,
-    "lng": 129.0403,
-    "harbor_type": "Coastal Natural",
-    "cargo_capability": ["Container", "Bulk", "Tanker", "LNG"],
-    "services_score": 91,
-    "strategic_score": 87,
-    "no2_mean": 25.6,
-    "viirs_mean": 33.9
+    "lat": 35.1,
+    "lng": 129.033333,
+    "harbor_type": "Coastal (Breakwater)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 82,
+    "strategic_score": 100,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
+  },
+  {
+    "id": "jebel_ali",
+    "name": "Jebel Ali",
+    "country": "United Arab Emirates",
+    "lat": 25.016667,
+    "lng": 55.05,
+    "harbor_type": "Coastal (Breakwater)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 65,
+    "strategic_score": 100,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
   },
   {
     "id": "long_beach",
     "name": "Long Beach",
     "country": "United States",
-    "lat": 33.7544,
-    "lng": -118.2166,
-    "harbor_type": "Coastal Breakwater",
-    "cargo_capability": ["Container", "Bulk", "Tanker"],
-    "services_score": 89,
-    "strategic_score": 86,
-    "no2_mean": 30.8,
-    "viirs_mean": 40.5
+    "lat": 33.766667,
+    "lng": -118.183333,
+    "harbor_type": "Coastal (Breakwater)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 100,
+    "strategic_score": 90,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
   },
   {
-    "id": "algeciras",
-    "name": "Algeciras",
-    "country": "Spain",
-    "lat": 36.1275,
-    "lng": -5.4428,
-    "harbor_type": "Coastal Natural",
-    "cargo_capability": ["Container", "Bulk", "Tanker"],
-    "services_score": 72,
-    "strategic_score": 68,
-    "no2_mean": 18.3,
-    "viirs_mean": 22.1
+    "id": "los_angeles",
+    "name": "Los Angeles",
+    "country": "United States",
+    "lat": 33.75,
+    "lng": -118.25,
+    "harbor_type": "Coastal (Breakwater)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 77,
+    "strategic_score": 100,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
+  },
+  {
+    "id": "mumbai",
+    "name": "Mumbai (JNPT)",
+    "country": "India",
+    "lat": 18.966667,
+    "lng": 72.866667,
+    "harbor_type": "Coastal (Tide Gates)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 97,
+    "strategic_score": 100,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
+  },
+  {
+    "id": "rotterdam",
+    "name": "Rotterdam",
+    "country": "Netherlands",
+    "lat": 51.9,
+    "lng": 4.483333,
+    "harbor_type": "River (Basins)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 97,
+    "strategic_score": 95,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
   },
   {
     "id": "santos",
     "name": "Santos",
     "country": "Brazil",
-    "lat": -23.9608,
-    "lng": -46.3336,
-    "harbor_type": "River Natural",
-    "cargo_capability": ["Container", "Bulk", "Tanker"],
-    "services_score": 58,
-    "strategic_score": 60,
-    "no2_mean": 22.7,
-    "viirs_mean": 19.5
+    "lat": -23.95,
+    "lng": -46.3,
+    "harbor_type": "Coastal (Natural)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 97,
+    "strategic_score": 100,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
+  },
+  {
+    "id": "shanghai",
+    "name": "Shanghai",
+    "country": "China",
+    "lat": 31.216667,
+    "lng": 121.5,
+    "harbor_type": "River (Natural)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 100,
+    "strategic_score": 100,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
+  },
+  {
+    "id": "singapore",
+    "name": "Singapore",
+    "country": "Singapore",
+    "lat": 1.283333,
+    "lng": 103.85,
+    "harbor_type": "Coastal (Natural)",
+    "cargo_capability": [
+      "Container",
+      "Bulk",
+      "Tanker"
+    ],
+    "services_score": 80,
+    "strategic_score": 100,
+    "no2_mean": 0.0,
+    "viirs_mean": 0.0
   }
 ]

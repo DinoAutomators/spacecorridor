@@ -30,7 +30,29 @@ def _read_csv(path: str) -> list[dict]:
         return rows
 
 
+def _try_supabase() -> dict | None:
+    """Attempt to load data from Supabase. Returns None if unavailable."""
+    settings = get_settings()
+    if not settings.use_supabase:
+        return None
+    try:
+        from supabase import create_client
+
+        client = create_client(settings.supabase_url, settings.supabase_key)
+        corridors = client.table("corridors").select("*").execute().data
+        ports = client.table("ports").select("*").execute().data
+        if corridors:
+            return {"corridors": corridors, "ports": ports or []}
+    except Exception:
+        pass
+    return None
+
+
 def _load_payload() -> dict:
+    supabase_data = _try_supabase()
+    if supabase_data is not None:
+        return supabase_data
+
     settings = get_settings()
     data_path = settings.data_path
 

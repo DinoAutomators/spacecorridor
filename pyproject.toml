@@ -14,7 +14,15 @@ dependencies = [
   "pydantic>=2.10,<3.0",
 ]
 
+[project.optional-dependencies]
+pipeline = [
+  "pandas>=2.0",
+  "python-dotenv>=1.0",
+  "requests>=2.31",
+  "supabase>=2.0,<3.0",
+]
+
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["backend*"]
+include = ["backend*", "pipeline*"]
 
