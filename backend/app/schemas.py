@@ -114,6 +114,28 @@ class RecommendationPanel(BaseModel):
     recommendations: list[RecommendationItem]
 
 
+class AIExplanationVariant(BaseModel):
+    id: str
+    label: str
+    why_this_corridor_matters: str
+    why_it_scored_this_way: str
+    what_should_happen_next: str
+    full_explanation: str
+
+
+class AIExplanationGenerationMetadata(BaseModel):
+    model: str
+    prompt_version: str
+    generated_at: str
+    fallback_used: bool
+
+
+class AIExplanations(BaseModel):
+    selected_variant_id: str
+    variants: list[AIExplanationVariant]
+    generation_metadata: AIExplanationGenerationMetadata
+
+
 class CorridorMapCard(BaseModel):
     corridor_id: str
     corridor_name: str
@@ -135,6 +157,8 @@ class CorridorDetailView(BaseModel):
     score: CorridorScore
     diagnosis_panel: DiagnosisPanel
     recommendation_panel: RecommendationPanel
+    ai_explanation: str
+    ai_explanations: AIExplanations
     map_card: CorridorMapCard
 
 

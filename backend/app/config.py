@@ -17,6 +17,12 @@ class Settings:
         self.cors_origins = [origin.strip() for origin in raw_cors_origins.split(",") if origin.strip()]
         self.app_name = "CorridorIQ API"
         self.app_version = "0.1.0"
+        self.openai_api_key = os.getenv("OPENAI_API_KEY", "")
+        self.openai_model = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
+        self.ai_enabled = os.getenv("CORRIDORIQ_AI_ENABLED", "false").lower() in {"1", "true", "yes", "on"}
+        self.ai_timeout_seconds = float(os.getenv("CORRIDORIQ_AI_TIMEOUT_SECONDS", "15"))
+        self.ai_variant_count = max(1, min(3, int(os.getenv("CORRIDORIQ_AI_VARIANT_COUNT", "3"))))
+        self.ai_prompt_version = os.getenv("CORRIDORIQ_AI_PROMPT_VERSION", "v1")
 
 
 @lru_cache

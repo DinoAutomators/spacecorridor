@@ -45,8 +45,11 @@ def list_corridors() -> CorridorListResponse:
 
 
 @app.get("/corridors/{corridor_id}", response_model=CorridorDetailView, tags=["corridors"])
-def corridor_detail(corridor_id: str) -> CorridorDetailView:
-    return service.detail_view_for(corridor_id)
+def corridor_detail(
+    corridor_id: str,
+    explanation_variant: str | None = Query(default=None),
+) -> CorridorDetailView:
+    return service.detail_view_for(corridor_id, explanation_variant=explanation_variant)
 
 
 @app.get("/ports", response_model=PortListResponse, tags=["ports"])

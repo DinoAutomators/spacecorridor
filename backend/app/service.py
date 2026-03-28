@@ -4,6 +4,7 @@ from fastapi import HTTPException
 
 from .data import load_data
 from .diagnosis import diagnose_corridor
+from .explanations import generate_explanations_for_corridor, selected_explanation_text
 from .recommendation import recommend_for_corridor
 from .schemas import (
     Coordinate,
@@ -93,14 +94,28 @@ class CorridorService:
             center=self._center_for(corridor),
         )
 
-    def detail_view_for(self, corridor_id: str) -> CorridorDetailView:
+    def detail_view_for(self, corridor_id: str, explanation_variant: str | None = None) -> CorridorDetailView:
         corridor = self.get_corridor(corridor_id)
+        ports = self.list_ports(corridor.corridor_id)
+        score = score_corridor(corridor)
+        diagnosis_panel = diagnose_corridor(corridor)
+        recommendation_panel = recommend_for_corridor(corridor)
+        ai_explanations = generate_explanations_for_corridor(
+            corridor=corridor,
+            ports=ports,
+            score=score,
+            diagnosis=diagnosis_panel,
+            recommendation=recommendation_panel,
+            requested_variant=explanation_variant,
+        )
         return CorridorDetailView(
             corridor=corridor,
-            ports=self.list_ports(corridor.corridor_id),
+            ports=ports,
             metrics=self.metrics_for(corridor),
-            score=score_corridor(corridor),
-            diagnosis_panel=diagnose_corridor(corridor),
-            recommendation_panel=recommend_for_corridor(corridor),
+            score=score,
+            diagnosis_panel=diagnosis_panel,
+            recommendation_panel=recommendation_panel,
+            ai_explanation=selected_explanation_text(ai_explanations),
+            ai_explanations=ai_explanations,
             map_card=self.map_card_for(corridor.corridor_id),
         )

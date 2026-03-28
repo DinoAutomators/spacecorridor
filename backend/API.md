@@ -54,7 +54,11 @@ Returns the corridor detail view:
 - score block
 - diagnosis panel
 - recommendation panel
+- `ai_explanation` for immediate frontend compatibility
+- `ai_explanations` with selectable `concise`, `analyst`, and `executive` variants
 - map card summary
+
+Supports optional query parameter `explanation_variant` to choose which explanation variant is returned as `ai_explanation`.
 
 ### `GET /ports`
 
@@ -88,6 +92,23 @@ Returns:
 - priorities
 - triggered findings
 - target metrics
+
+## AI explanation layer
+
+The detail endpoint adds a server-side explanation layer that:
+
+- keeps scores, diagnoses, and recommendations rule-based
+- generates structured explanation variants from OpenAI when enabled
+- falls back to deterministic template text if AI is disabled, unavailable, or fails validation
+
+Environment variables:
+
+- `OPENAI_API_KEY`
+- `OPENAI_MODEL`
+- `CORRIDORIQ_AI_ENABLED`
+- `CORRIDORIQ_AI_TIMEOUT_SECONDS`
+- `CORRIDORIQ_AI_VARIANT_COUNT`
+- `CORRIDORIQ_AI_PROMPT_VERSION`
 
 ## Tuning model behavior
 

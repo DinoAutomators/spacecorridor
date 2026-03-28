@@ -85,6 +85,28 @@ Example:
 export CORRIDORIQ_CORS_ORIGINS=http://localhost:3000
 ```
 
+## AI explanation layer
+
+The corridor detail endpoint can generate structured explanation variants on the backend.
+
+Configure it with:
+
+```bash
+export OPENAI_API_KEY=your_key
+export OPENAI_MODEL=gpt-4o-mini
+export CORRIDORIQ_AI_ENABLED=true
+export CORRIDORIQ_AI_TIMEOUT_SECONDS=15
+export CORRIDORIQ_AI_VARIANT_COUNT=3
+export CORRIDORIQ_AI_PROMPT_VERSION=v1
+```
+
+Behavior:
+
+- AI is supporting-only and does not change scores, diagnoses, or recommendations
+- `GET /corridors/{id}` returns both `ai_explanation` and `ai_explanations`
+- `explanation_variant=concise|analyst|executive` lets callers choose which variant is surfaced as `ai_explanation`
+- if OpenAI is disabled or fails, the backend returns deterministic fallback text
+
 ## Decision logic included
 
 The backend currently implements:
