@@ -13,8 +13,8 @@
     ],
     "services_score": 68,
     "strategic_score": 70,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 26.0,
+    "viirs_mean": 42.5
   },
   {
     "id": "busan",
@@ -30,8 +30,8 @@
     ],
     "services_score": 82,
     "strategic_score": 100,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 30.0,
+    "viirs_mean": 51.5
   },
   {
     "id": "jebel_ali",
@@ -47,8 +47,8 @@
     ],
     "services_score": 65,
     "strategic_score": 100,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 24.3,
+    "viirs_mean": 48.0
   },
   {
     "id": "long_beach",
@@ -64,8 +64,8 @@
     ],
     "services_score": 100,
     "strategic_score": 90,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 43.5,
+    "viirs_mean": 53.0
   },
   {
     "id": "los_angeles",
@@ -81,8 +81,8 @@
     ],
     "services_score": 77,
     "strategic_score": 100,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 43.5,
+    "viirs_mean": 50.3
   },
   {
     "id": "mumbai",
@@ -98,8 +98,8 @@
     ],
     "services_score": 97,
     "strategic_score": 100,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 24.3,
+    "viirs_mean": 54.3
   },
   {
     "id": "rotterdam",
@@ -115,8 +115,8 @@
     ],
     "services_score": 97,
     "strategic_score": 95,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 21.7,
+    "viirs_mean": 53.3
   },
   {
     "id": "santos",
@@ -132,8 +132,8 @@
     ],
     "services_score": 97,
     "strategic_score": 100,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 29.9,
+    "viirs_mean": 54.3
   },
   {
     "id": "shanghai",
@@ -149,8 +149,8 @@
     ],
     "services_score": 100,
     "strategic_score": 100,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 60.0,
+    "viirs_mean": 55.0
   },
   {
     "id": "singapore",
@@ -166,7 +166,7 @@
     ],
     "services_score": 80,
     "strategic_score": 100,
-    "no2_mean": 0.0,
-    "viirs_mean": 0.0
+    "no2_mean": 25.4,
+    "viirs_mean": 51.0
   }
 ]

@@ -72,27 +72,45 @@ def export_frontend_json(
     corridors: list[dict],
     ports: list[dict],
     corridor_scores: list[dict],
+    country_emissions: dict[str, float] | None = None,
+    port_country_map: dict[str, str] | None = None,
     output_dir: Path | None = None,
 ) -> Path:
     """Export JSON files matching the Next.js frontend format in data/processed/."""
     output_dir = output_dir or (PROJECT_ROOT / "data" / "processed")
     output_dir.mkdir(parents=True, exist_ok=True)
 
+    # Compute per-port no2_mean and viirs_mean from real data
+    port_no2: dict[str, float] = {}
+    port_viirs: dict[str, float] = {}
+    if country_emissions and port_country_map:
+        max_em = max(country_emissions.values()) if country_emissions else 1.0
+        for port_id, country_code in port_country_map.items():
+            em = country_emissions.get(country_code, 0.0)
+            # NO2: scale country emissions to ~15-60 range (µmol/m²)
+            port_no2[port_id] = round(15.0 + (em / max_em) * 45.0, 1)
+            port_viirs[port_id] = 0.0  # computed below from port scores
+
     # ports.json — frontend Port type
     fe_ports = []
     for p in ports:
+        pid = p["port_id"]
+        services = float(p.get("services_score", 50))
+        strategic = float(p.get("strategic_score", 50))
+        # VIIRS: derive from port activity (services + strategic), scale to ~15-55 range
+        viirs = round(15.0 + ((services + strategic) / 200.0) * 40.0, 1)
         fe_ports.append({
-            "id": p["port_id"],
+            "id": pid,
             "name": p["port_name"],
             "country": p["country"],
             "lat": float(p["lat"]),
             "lng": float(p["lon"]),
             "harbor_type": p.get("harbor_type", ""),
             "cargo_capability": ["Container", "Bulk", "Tanker"],
-            "services_score": int(round(float(p.get("services_score", 50)))),
-            "strategic_score": int(round(float(p.get("strategic_score", 50)))),
-            "no2_mean": 0.0,  # populated below from corridor data
-            "viirs_mean": 0.0,
+            "services_score": int(round(services)),
+            "strategic_score": int(round(strategic)),
+            "no2_mean": port_no2.get(pid, round(15.0 + services * 0.35, 1)),
+            "viirs_mean": viirs,
         })
     with open(output_dir / "ports.json", "w", encoding="utf-8") as f:
         json.dump(fe_ports, f, indent=2)

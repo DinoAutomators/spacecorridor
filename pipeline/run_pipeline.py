@@ -184,7 +184,16 @@ def main() -> None:
             "ai_explanation": explanation,
         })
 
-    fe_dir = export_frontend_json(corridor_features, port_data, fe_corridor_scores)
+    # Map port_id -> country ISO code for NO2/VIIRS derivation
+    port_country_map = {
+        "singapore": "SGP", "rotterdam": "NLD", "shanghai": "CHN",
+        "los_angeles": "USA", "jebel_ali": "ARE", "mumbai": "IND",
+        "santos": "BRA", "busan": "KOR", "long_beach": "USA", "algeciras": "ESP",
+    }
+    fe_dir = export_frontend_json(
+        corridor_features, port_data, fe_corridor_scores,
+        country_emissions=country_emissions, port_country_map=port_country_map,
+    )
     print(f"  -> Frontend JSON: {fe_dir}")
 
     # Print summary
