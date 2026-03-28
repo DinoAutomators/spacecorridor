@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import json
 from functools import lru_cache
+from pathlib import Path
 
 from .config import get_settings
 from .schemas import DataBundle
@@ -33,6 +34,9 @@ def _load_payload() -> dict:
     settings = get_settings()
     data_path = settings.data_path
 
+    if not data_path.exists():
+        return {"corridors": [], "ports": []}
+
     if data_path.is_dir():
         corridor_csv = data_path / "corridor_features.csv"
         port_csv = data_path / "port_features.csv"
@@ -44,10 +48,22 @@ def _load_payload() -> dict:
 
         corridors_path = data_path / "corridors.json"
         ports_path = data_path / "ports.json"
-        return {
-            "corridors": _read_json(str(corridors_path)),
-            "ports": _read_json(str(ports_path)),
-        }
+        if corridors_path.exists() and ports_path.exists():
+            return {
+                "corridors": _read_json(str(corridors_path)),
+                "ports": _read_json(str(ports_path)),
+            }
+
+        return {"corridors": [], "ports": []}
+
+    if not data_path.is_file():
+        return {"corridors": [], "ports": []}
+
+    if Path(data_path).suffix.lower() == ".csv":
+        return {"corridors": _read_csv(str(data_path)), "ports": []}
+
+    if Path(data_path).suffix.lower() != ".json":
+        return {"corridors": [], "ports": []}
 
     return _read_json(str(data_path))
 
