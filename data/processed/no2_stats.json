@@ -1,0 +1,62 @@
+{
+  "singapore": {
+    "no2_mean_mol_m2": 4.23e-05,
+    "no2_mean_umol_m2": 42.3,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "rotterdam": {
+    "no2_mean_mol_m2": 3.51e-05,
+    "no2_mean_umol_m2": 35.1,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "shanghai": {
+    "no2_mean_mol_m2": 5.87e-05,
+    "no2_mean_umol_m2": 58.7,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "los_angeles": {
+    "no2_mean_mol_m2": 3.14e-05,
+    "no2_mean_umol_m2": 31.4,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "jebel_ali": {
+    "no2_mean_mol_m2": 2.89e-05,
+    "no2_mean_umol_m2": 28.9,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "mumbai": {
+    "no2_mean_mol_m2": 4.72e-05,
+    "no2_mean_umol_m2": 47.2,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "busan": {
+    "no2_mean_mol_m2": 2.56e-05,
+    "no2_mean_umol_m2": 25.6,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "long_beach": {
+    "no2_mean_mol_m2": 3.08e-05,
+    "no2_mean_umol_m2": 30.8,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "algeciras": {
+    "no2_mean_mol_m2": 1.83e-05,
+    "no2_mean_umol_m2": 18.3,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "santos": {
+    "no2_mean_mol_m2": 2.27e-05,
+    "no2_mean_umol_m2": 22.7,
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  }
+}

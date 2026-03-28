@@ -1,0 +1,62 @@
+{
+  "singapore": {
+    "viirs_mean": 38.7,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "rotterdam": {
+    "viirs_mean": 45.2,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "shanghai": {
+    "viirs_mean": 52.1,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "los_angeles": {
+    "viirs_mean": 41.8,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "jebel_ali": {
+    "viirs_mean": 35.4,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "mumbai": {
+    "viirs_mean": 28.3,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "busan": {
+    "viirs_mean": 33.9,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "long_beach": {
+    "viirs_mean": 40.5,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "algeciras": {
+    "viirs_mean": 22.1,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  },
+  "santos": {
+    "viirs_mean": 19.5,
+    "unit": "nW/cm²/sr",
+    "buffer_radius_m": 25000,
+    "period": "2025-09-28 to 2026-03-28"
+  }
+}
