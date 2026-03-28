@@ -40,21 +40,61 @@ export function CorridorMap({
   const [hoveredPort, setHoveredPort] = useState<Port | null>(null);
   const [popupCoords, setPopupCoords] = useState<{ lng: number; lat: number } | null>(null);
 
-  const corridorGeoJSON = useMemo(() => ({
-    type: "FeatureCollection" as const,
-    features: corridors.map((c) => ({
-      type: "Feature" as const,
-      id: c.id,
-      properties: {
-        id: c.id,
-        name: c.name,
-        readiness: c.score?.readiness_score ?? 0,
-        color: getReadinessColor(c.score?.readiness_score ?? 0),
-        selected: c.id === selectedCorridorId ? 1 : 0,
-      },
-      geometry: c.geometry,
-    })),
-  }), [corridors, selectedCorridorId]);
+  const corridorGeoJSON = useMemo(() => {
+    function splitAntimeridian(
+      coords: number[][]
+    ): GeoJSON.LineString | GeoJSON.MultiLineString {
+      const segments: number[][][] = [[]];
+      for (let i = 0; i < coords.length; i++) {
+        segments[segments.length - 1].push(coords[i]);
+        if (i < coords.length - 1) {
+          const lngDiff = Math.abs(coords[i + 1][0] - coords[i][0]);
+          if (lngDiff > 180) {
+            // Crossing the antimeridian — interpolate the break point
+            const lng1 = coords[i][0];
+            const lat1 = coords[i][1];
+            const lng2 = coords[i + 1][0];
+            const lat2 = coords[i + 1][1];
+            const sign = lng1 > 0 ? 1 : -1;
+            const edgeLng = sign * 180;
+            const t = (edgeLng - lng1) / (lng2 + sign * 360 - lng1);
+            const edgeLat = lat1 + t * (lat2 - lat1);
+            segments[segments.length - 1].push([edgeLng, edgeLat]);
+            segments.push([[-edgeLng, edgeLat]]);
+          }
+        }
+      }
+      if (segments.length === 1) {
+        return { type: "LineString", coordinates: segments[0] };
+      }
+      return {
+        type: "MultiLineString",
+        coordinates: segments.filter((s) => s.length >= 2),
+      };
+    }
+
+    return {
+      type: "FeatureCollection" as const,
+      features: corridors.map((c) => {
+        let geometry = c.geometry;
+        if (geometry.type === "LineString") {
+          geometry = splitAntimeridian(geometry.coordinates);
+        }
+        return {
+          type: "Feature" as const,
+          id: c.id,
+          properties: {
+            id: c.id,
+            name: c.name,
+            readiness: c.score?.readiness_score ?? 0,
+            color: getReadinessColor(c.score?.readiness_score ?? 0),
+            selected: c.id === selectedCorridorId ? 1 : 0,
+          },
+          geometry,
+        };
+      }),
+    };
+  }, [corridors, selectedCorridorId]);
 
   const portGeoJSON = useMemo(() => ({
     type: "FeatureCollection" as const,
@@ -82,10 +122,14 @@ export function CorridorMap({
         onSelectCorridor(id);
         const corridor = corridors.find((c) => c.id === id);
         if (corridor && mapRef.current) {
-          const coords = corridor.geometry.coordinates;
-          const midIdx = Math.floor(coords.length / 2);
+          const geo = corridor.geometry;
+          const flatCoords =
+            geo.type === "MultiLineString"
+              ? geo.coordinates.flat()
+              : geo.coordinates;
+          const midIdx = Math.floor(flatCoords.length / 2);
           mapRef.current.flyTo({
-            center: [coords[midIdx][0], coords[midIdx][1]],
+            center: [flatCoords[midIdx][0] as number, flatCoords[midIdx][1] as number],
             zoom: 4,
             duration: 1500,
           });

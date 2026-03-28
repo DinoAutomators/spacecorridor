@@ -18,7 +18,7 @@ export interface Corridor {
   from_port_id: string;
   to_port_id: string;
   region: string;
-  geometry: GeoJSON.LineString;
+  geometry: GeoJSON.LineString | GeoJSON.MultiLineString;
   description: string;
   from_port?: Port;
   to_port?: Port;
