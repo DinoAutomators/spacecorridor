@@ -5,7 +5,7 @@
     "from_port_id": "singapore",
     "to_port_id": "rotterdam",
     "region": "Asia-Europe",
-    "description": "The busiest global trade lane, connecting Southeast Asia's largest transshipment hub to Europe's primary gateway port through the Strait of Malacca and Suez Canal.",
+    "description": "The busiest global trade lane connecting Southeast Asia's largest transshipment hub to Europe's primary gateway through the Suez Canal.",
     "geometry": {
       "type": "LineString",
       "coordinates": [
@@ -14,64 +14,98 @@
           1.264
         ],
         [
-          98.5,
-          3.5
-        ],
-        [
           80.2,
           6.8
-        ],
-        [
-          72.8,
-          10.5
         ],
         [
           55.3,
           12.8
         ],
         [
-          43.2,
-          12.5
-        ],
-        [
-          39.5,
-          15.5
-        ],
-        [
           32.5,
           30.0
-        ],
-        [
-          32.3,
-          31.3
-        ],
-        [
-          28.0,
-          35.0
         ],
         [
           15.0,
           37.5
         ],
         [
-          5.0,
-          39.0
+          4.479,
+          51.922
+        ]
+      ]
+    }
+  },
+  {
+    "id": "shanghai-hamburg",
+    "name": "Shanghai \u2192 Hamburg",
+    "from_port_id": "shanghai",
+    "to_port_id": "hamburg",
+    "region": "Asia-Europe",
+    "description": "Major Asia-Northern Europe route linking China's largest port to Germany's primary deep-water gateway.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          121.474,
+          31.23
         ],
         [
-          -3.0,
-          43.0
+          103.8,
+          1.3
+        ],
+        [
+          72.8,
+          10.5
+        ],
+        [
+          32.5,
+          30.0
+        ],
+        [
+          15.0,
+          37.5
+        ],
+        [
+          9.966,
+          53.533
+        ]
+      ]
+    }
+  },
+  {
+    "id": "hong_kong-le_havre",
+    "name": "Hong Kong \u2192 Le Havre",
+    "from_port_id": "hong_kong",
+    "to_port_id": "le_havre",
+    "region": "Asia-Europe",
+    "description": "Connects Hong Kong's deep-water transshipment hub with France's Atlantic gateway for consumer goods.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          114.169,
+          22.319
+        ],
+        [
+          103.8,
+          1.3
+        ],
+        [
+          72.8,
+          10.5
+        ],
+        [
+          32.5,
+          30.0
         ],
         [
           -5.0,
           48.0
         ],
         [
-          0.0,
-          50.5
-        ],
-        [
-          4.479,
-          51.922
+          0.117,
+          49.483
         ]
       ]
     }
@@ -82,7 +116,7 @@
     "from_port_id": "shanghai",
     "to_port_id": "los_angeles",
     "region": "Trans-Pacific",
-    "description": "Major trans-Pacific route carrying electronics, machinery, and consumer goods from China's largest port to the U.S. West Coast.",
+    "description": "The dominant trans-Pacific route carrying consumer goods from China to the US West Coast.",
     "geometry": {
       "type": "LineString",
       "coordinates": [
@@ -91,27 +125,11 @@
           31.23
         ],
         [
-          130.0,
-          33.0
-        ],
-        [
           140.0,
           35.0
         ],
         [
-          155.0,
-          38.0
-        ],
-        [
-          170.0,
-          40.0
-        ],
-        [
-          -180.0,
-          42.0
-        ],
-        [
-          -165.0,
+          180.0,
           40.0
         ],
         [
@@ -119,12 +137,103 @@
           38.0
         ],
         [
-          -135.0,
-          35.5
+          -118.265,
+          33.74
+        ]
+      ]
+    }
+  },
+  {
+    "id": "busan-long_beach",
+    "name": "Busan \u2192 Long Beach",
+    "from_port_id": "busan",
+    "to_port_id": "long_beach",
+    "region": "Trans-Pacific",
+    "description": "Key Asia-Americas route connecting South Korea's largest port to Long Beach.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          129.04,
+          35.103
         ],
         [
-          -125.0,
-          34.0
+          155.0,
+          40.0
+        ],
+        [
+          -180.0,
+          43.0
+        ],
+        [
+          -150.0,
+          39.0
+        ],
+        [
+          -118.217,
+          33.754
+        ]
+      ]
+    }
+  },
+  {
+    "id": "kaohsiung-vancouver",
+    "name": "Kaohsiung \u2192 Vancouver",
+    "from_port_id": "kaohsiung",
+    "to_port_id": "vancouver",
+    "region": "Trans-Pacific",
+    "description": "Semiconductor and electronics trade route connecting Taiwan's largest port to Canada's Pacific gateway.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          120.283,
+          22.617
+        ],
+        [
+          140.0,
+          35.0
+        ],
+        [
+          170.0,
+          45.0
+        ],
+        [
+          -150.0,
+          48.0
+        ],
+        [
+          -123.117,
+          49.283
+        ]
+      ]
+    }
+  },
+  {
+    "id": "yokohama-los_angeles",
+    "name": "Yokohama \u2192 Los Angeles",
+    "from_port_id": "yokohama",
+    "to_port_id": "los_angeles",
+    "region": "Trans-Pacific",
+    "description": "Japan-US trade corridor for automotive parts, machinery, and manufactured goods.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          139.65,
+          35.444
+        ],
+        [
+          155.0,
+          40.0
+        ],
+        [
+          -180.0,
+          42.0
+        ],
+        [
+          -150.0,
+          38.0
         ],
         [
           -118.265,
@@ -139,7 +248,7 @@
     "from_port_id": "jebel_ali",
     "to_port_id": "mumbai",
     "region": "Regional",
-    "description": "High-intensity regional corridor connecting the UAE's premier port to India's busiest container terminal, carrying petroleum products and manufactured goods.",
+    "description": "High-intensity regional corridor connecting the UAE's premier port to India's busiest container terminal.",
     "geometry": {
       "type": "LineString",
       "coordinates": [
@@ -148,20 +257,8 @@
           25.018
         ],
         [
-          56.5,
-          24.5
-        ],
-        [
-          58.5,
-          23.0
-        ],
-        [
           62.0,
           22.0
-        ],
-        [
-          66.0,
-          21.5
         ],
         [
           69.0,
@@ -175,54 +272,84 @@
     }
   },
   {
-    "id": "busan-long_beach",
-    "name": "Busan \u2192 Long Beach",
-    "from_port_id": "busan",
-    "to_port_id": "long_beach",
-    "region": "Trans-Pacific",
-    "description": "Key Asia-Americas route connecting South Korea's largest port to the Port of Long Beach, a major U.S. import gateway.",
+    "id": "singapore-port_klang",
+    "name": "Singapore \u2192 Port Klang",
+    "from_port_id": "singapore",
+    "to_port_id": "port_klang",
+    "region": "Regional",
+    "description": "Short-haul Strait of Malacca feeder connecting the world's busiest transshipment hub to Malaysia's largest port.",
     "geometry": {
       "type": "LineString",
       "coordinates": [
         [
-          129.04,
-          35.103
+          103.85,
+          1.283
         ],
         [
-          140.0,
-          37.0
+          102.5,
+          2.0
         ],
         [
-          155.0,
-          40.0
+          101.4,
+          3.0
+        ]
+      ]
+    }
+  },
+  {
+    "id": "laem_chabang-hai_phong",
+    "name": "Laem Chabang \u2192 Hai Phong",
+    "from_port_id": "laem_chabang",
+    "to_port_id": "hai_phong",
+    "region": "Regional",
+    "description": "Intra-ASEAN manufacturing corridor linking Thailand's industrial port to Vietnam's northern gateway.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          100.883,
+          13.083
         ],
         [
-          170.0,
-          42.0
+          104.0,
+          10.0
         ],
         [
-          -180.0,
-          43.0
+          106.7,
+          10.8
         ],
         [
-          -165.0,
-          41.0
+          106.667,
+          20.867
+        ]
+      ]
+    }
+  },
+  {
+    "id": "colombo-singapore",
+    "name": "Colombo \u2192 Singapore",
+    "from_port_id": "colombo",
+    "to_port_id": "singapore",
+    "region": "Regional",
+    "description": "Indian Ocean transshipment corridor connecting Sri Lanka's hub to Singapore.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          79.85,
+          6.933
         ],
         [
-          -150.0,
-          39.0
+          85.0,
+          5.0
         ],
         [
-          -135.0,
-          36.0
+          95.0,
+          3.0
         ],
         [
-          -125.0,
-          34.5
-        ],
-        [
-          -118.217,
-          33.754
+          103.85,
+          1.283
         ]
       ]
     }
@@ -233,7 +360,7 @@
     "from_port_id": "algeciras",
     "to_port_id": "santos",
     "region": "Atlantic",
-    "description": "Europe-South America trade link connecting Spain's busiest port to Brazil's largest, carrying automotive parts, agricultural products, and manufactured goods.",
+    "description": "Europe-South America trade link for agricultural products and manufactured goods.",
     "geometry": {
       "type": "LineString",
       "coordinates": [
@@ -242,32 +369,12 @@
           36.128
         ],
         [
-          -10.0,
-          32.0
-        ],
-        [
-          -15.0,
-          28.0
-        ],
-        [
           -18.0,
           22.0
         ],
         [
-          -22.0,
-          15.0
-        ],
-        [
           -28.0,
           5.0
-        ],
-        [
-          -32.0,
-          -5.0
-        ],
-        [
-          -36.0,
-          -12.0
         ],
         [
           -40.0,
@@ -276,6 +383,274 @@
         [
           -46.334,
           -23.961
+        ]
+      ]
+    }
+  },
+  {
+    "id": "houston-rotterdam",
+    "name": "Houston \u2192 Rotterdam",
+    "from_port_id": "houston",
+    "to_port_id": "rotterdam",
+    "region": "Atlantic",
+    "description": "Major energy and bulk commodity corridor connecting the US Gulf petrochemical complex with Europe.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -95.283,
+          29.75
+        ],
+        [
+          -85.0,
+          25.0
+        ],
+        [
+          -30.0,
+          40.0
+        ],
+        [
+          4.483,
+          51.9
+        ]
+      ]
+    }
+  },
+  {
+    "id": "southampton-montreal",
+    "name": "Southampton \u2192 Vancouver",
+    "from_port_id": "southampton",
+    "to_port_id": "vancouver",
+    "region": "Atlantic",
+    "description": "UK-Canada trade corridor through the North Atlantic and Panama Canal.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          -1.4,
+          50.9
+        ],
+        [
+          -20.0,
+          50.0
+        ],
+        [
+          -50.0,
+          40.0
+        ],
+        [
+          -80.0,
+          20.0
+        ],
+        [
+          -79.5,
+          9.0
+        ],
+        [
+          -100.0,
+          15.0
+        ],
+        [
+          -123.117,
+          49.283
+        ]
+      ]
+    }
+  },
+  {
+    "id": "piraeus-istanbul",
+    "name": "Piraeus \u2192 Istanbul",
+    "from_port_id": "piraeus",
+    "to_port_id": "istanbul",
+    "region": "Mediterranean",
+    "description": "Short-haul Eastern Mediterranean route linking Greece's main port to Turkey's commercial hub.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          23.635,
+          37.943
+        ],
+        [
+          25.0,
+          38.0
+        ],
+        [
+          26.5,
+          39.0
+        ],
+        [
+          28.967,
+          41.017
+        ]
+      ]
+    }
+  },
+  {
+    "id": "jeddah-alexandria",
+    "name": "Jeddah \u2192 Alexandria",
+    "from_port_id": "jeddah",
+    "to_port_id": "alexandria",
+    "region": "Mediterranean",
+    "description": "Red Sea to Mediterranean corridor through the Suez Canal linking Saudi Arabia and Egypt.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          39.183,
+          21.517
+        ],
+        [
+          38.0,
+          25.0
+        ],
+        [
+          33.0,
+          28.0
+        ],
+        [
+          32.55,
+          29.967
+        ],
+        [
+          32.3,
+          31.3
+        ],
+        [
+          29.833,
+          31.167
+        ]
+      ]
+    }
+  },
+  {
+    "id": "durban-singapore",
+    "name": "Durban \u2192 Singapore",
+    "from_port_id": "durban",
+    "to_port_id": "singapore",
+    "region": "Indian Ocean",
+    "description": "Long-haul Indian Ocean corridor connecting Southern Africa's busiest port to Asia's transshipment hub.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          31.033,
+          -29.867
+        ],
+        [
+          45.0,
+          -15.0
+        ],
+        [
+          60.0,
+          -5.0
+        ],
+        [
+          80.0,
+          3.0
+        ],
+        [
+          103.85,
+          1.283
+        ]
+      ]
+    }
+  },
+  {
+    "id": "melbourne-yokohama",
+    "name": "Melbourne \u2192 Yokohama",
+    "from_port_id": "melbourne",
+    "to_port_id": "yokohama",
+    "region": "Asia-Pacific",
+    "description": "Australia-Japan trade corridor for LNG, iron ore, and coal.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          144.95,
+          -37.817
+        ],
+        [
+          150.0,
+          -30.0
+        ],
+        [
+          155.0,
+          -20.0
+        ],
+        [
+          145.0,
+          0.0
+        ],
+        [
+          135.0,
+          20.0
+        ],
+        [
+          139.65,
+          35.444
+        ]
+      ]
+    }
+  },
+  {
+    "id": "melbourne-shanghai",
+    "name": "Melbourne \u2192 Shanghai",
+    "from_port_id": "melbourne",
+    "to_port_id": "shanghai",
+    "region": "Asia-Pacific",
+    "description": "Australia-China bulk commodity corridor for iron ore, coal, and agricultural products.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          144.95,
+          -37.817
+        ],
+        [
+          150.0,
+          -25.0
+        ],
+        [
+          145.0,
+          -10.0
+        ],
+        [
+          130.0,
+          5.0
+        ],
+        [
+          121.474,
+          31.23
+        ]
+      ]
+    }
+  },
+  {
+    "id": "tanjung_pelepas-hong_kong",
+    "name": "Tanjung Pelepas \u2192 Hong Kong",
+    "from_port_id": "tanjung_pelepas",
+    "to_port_id": "hong_kong",
+    "region": "Regional",
+    "description": "South China Sea feeder linking Malaysia's fast-growing transshipment port to Hong Kong.",
+    "geometry": {
+      "type": "LineString",
+      "coordinates": [
+        [
+          103.55,
+          1.367
+        ],
+        [
+          105.0,
+          3.0
+        ],
+        [
+          110.0,
+          10.0
+        ],
+        [
+          114.169,
+          22.319
         ]
       ]
     }

@@ -8,7 +8,11 @@ from pipeline.config import RAW_DATA_DIR
 from pipeline.processing.normalize import min_max_normalize
 
 # Country codes for our corridor endpoints
-CORRIDOR_COUNTRIES = {"SGP", "NLD", "CHN", "USA", "ARE", "IND", "BRA", "KOR", "ESP"}
+CORRIDOR_COUNTRIES = {
+    "SGP", "NLD", "CHN", "USA", "ARE", "IND", "BRA", "KOR", "ESP",
+    "JPN", "AUS", "MYS", "HKG", "DEU", "GBR", "FRA", "CAN",
+    "TUR", "ZAF", "GRC", "TWN", "VNM", "THA", "LKA", "SAU", "EGY",
+}
 
 # International voyage types that represent trade corridor emissions
 INTERNATIONAL_SOURCES = {

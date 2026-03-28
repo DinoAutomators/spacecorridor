@@ -14,7 +14,7 @@ from pipeline.loaders.csv_exporter import (
     export_frontend_json,
     export_ports,
 )
-from pipeline.processing.corridor_builder import CORRIDOR_DEFINITIONS
+from pipeline.processing.corridor_builder import CORRIDOR_DEFINITIONS, PORT_COUNTRY_MAP
 from pipeline.processing.feature_builder import (
     build_corridor_features,
     compute_connectivity_scores,
@@ -29,42 +29,50 @@ from pipeline.sources.satellite_proxy import (
 from pipeline.sources.wpi import clean_wpi
 
 
-# Bottleneck diagnosis and recommendation mapping (mirrors backend logic)
-BOTTLENECK_RULES: list[dict] = [
-    {
-        "code": "Pollution Exposure Hotspot",
-        "condition": lambda s: s["no2_score"] >= 60 and s["lights_score"] >= 55,
-        "recommendation": "Implement Emission Control Area (ECA) designation along corridor. Deploy real-time emissions monitoring and enforce slow steaming zones near ports.",
-    },
-    {
-        "code": "Port Infrastructure Gap",
-        "condition": lambda s: s["lights_score"] >= 50 and s["strategic_score"] < 55,
-        "recommendation": "Prioritize shore power installations and LNG bunkering infrastructure at endpoint ports. Consider public-private partnerships for green port upgrades.",
-    },
-    {
-        "code": "Cross-Mode Coordination Gap",
-        "condition": lambda s: s["lights_score"] >= 50 and s["feasibility_score"] < 55,
-        "recommendation": "Fund shared planning, dispatch, and handoff processes across port, rail, and inland operators.",
-    },
-    {
-        "code": "Fuel Transition Gap",
-        "condition": lambda s: s["emissions_score"] >= 60 and s["strategic_score"] >= 55,
-        "recommendation": "Develop clean-fuel storage, bunkering, and terminal handling capacity for corridor operations.",
-    },
-    {
-        "code": "Monitoring/Readiness Gap",
-        "condition": lambda _: True,  # fallback
-        "recommendation": "Deploy satellite-based MRV (Monitoring, Reporting, Verification) systems. Establish corridor-level emissions baselines using Sentinel-5P and AIS data fusion.",
-    },
-]
+# Bottleneck diagnosis and recommendation mapping (mirrors backend diagnosis.py logic)
+BOTTLENECK_RECOMMENDATIONS: dict[str, str] = {
+    "Port Infrastructure Gap": "Prioritize shore power installations, terminal electrification, and LNG bunkering infrastructure at endpoint ports.",
+    "Fuel Transition Gap": "Develop clean-fuel storage, bunkering, and terminal handling capacity for corridor operations.",
+    "Pollution Exposure Hotspot": "Implement Emission Control Area (ECA) designation along corridor. Deploy real-time emissions monitoring and enforce slow steaming zones near ports.",
+    "Cross-Mode Coordination Gap": "Fund shared planning, dispatch, and handoff processes across port, rail, and inland operators.",
+    "Monitoring/Readiness Gap": "Deploy satellite-based MRV (Monitoring, Reporting, Verification) systems. Establish corridor-level emissions baselines using Sentinel-5P and AIS data fusion.",
+}
 
 
 def _diagnose(scores: dict) -> tuple[str, str]:
-    """Apply rule-based bottleneck diagnosis."""
-    for rule in BOTTLENECK_RULES:
-        if rule["condition"](scores):
-            return rule["code"], rule["recommendation"]
-    return "Monitoring/Readiness Gap", BOTTLENECK_RULES[-1]["recommendation"]
+    """Apply rule-based bottleneck diagnosis matching backend diagnosis.py patterns."""
+    em = scores["emissions_score"]
+    no2 = scores["no2_score"]
+    lights = scores["lights_score"]
+    strat = scores["strategic_score"]
+    feas = scores["feasibility_score"]
+    readiness = scores["readiness_score"]
+
+    # 1. Port Infrastructure Gap: high activity but weak port infrastructure
+    if lights >= 65 and strat < 55:
+        code = "Port Infrastructure Gap"
+    # 2. Fuel Transition Gap: high emissions + decent infrastructure = needs clean fuel
+    elif em >= 55 and strat >= 70 and feas >= 55:
+        code = "Fuel Transition Gap"
+    # 3. Pollution Exposure Hotspot: high NO2 + high activity
+    elif no2 >= 60 and lights >= 60:
+        code = "Pollution Exposure Hotspot"
+    # 4. Cross-Mode Coordination Gap: decent activity but low feasibility
+    elif lights >= 60 and feas < 45:
+        code = "Cross-Mode Coordination Gap"
+    # 5. Monitoring/Readiness Gap: low overall readiness or feasibility
+    elif readiness < 50 or feas < 35:
+        code = "Monitoring/Readiness Gap"
+    # 6. Fallback: pick weakest dimension
+    else:
+        weakest = min(
+            [("Port Infrastructure Gap", strat), ("Fuel Transition Gap", em),
+             ("Cross-Mode Coordination Gap", feas), ("Pollution Exposure Hotspot", no2)],
+            key=lambda x: x[1],
+        )
+        code = weakest[0]
+
+    return code, BOTTLENECK_RECOMMENDATIONS[code]
 
 
 def _generate_explanation(corridor: dict, scores: dict, bottleneck: str) -> str:
@@ -184,15 +192,9 @@ def main() -> None:
             "ai_explanation": explanation,
         })
 
-    # Map port_id -> country ISO code for NO2/VIIRS derivation
-    port_country_map = {
-        "singapore": "SGP", "rotterdam": "NLD", "shanghai": "CHN",
-        "los_angeles": "USA", "jebel_ali": "ARE", "mumbai": "IND",
-        "santos": "BRA", "busan": "KOR", "long_beach": "USA", "algeciras": "ESP",
-    }
     fe_dir = export_frontend_json(
         corridor_features, port_data, fe_corridor_scores,
-        country_emissions=country_emissions, port_country_map=port_country_map,
+        country_emissions=country_emissions, port_country_map=PORT_COUNTRY_MAP,
     )
     print(f"  -> Frontend JSON: {fe_dir}")
 
